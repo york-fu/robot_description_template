@@ -8,8 +8,9 @@ import os
 
 
 def generate_launch_description():
-    pkg_share = FindPackageShare("robot_description_template").find("robot_description_template")
-    urdf_file = PathJoinSubstitution([pkg_share, "urdf", "robot_description_template.urdf"])
+    pkg_name = 'robot_description_template'
+    pkg_share = FindPackageShare(pkg_name).find(pkg_name)
+    # urdf_file = PathJoinSubstitution([pkg_share, "urdf", "robot_description_template.urdf"])
     urdf_file = os.path.join(pkg_share, "urdf", "robot_description_template.urdf")
 
     gz_launch = IncludeLaunchDescription(
@@ -33,7 +34,7 @@ def generate_launch_description():
     spawn_robot = Node(
         package="ros_gz_sim",
         executable="create",
-        arguments=["-name", "ncb_a1_description", "-topic", "robot_description", "-z", "1.2"],
+        arguments=["-name", pkg_name, "-topic", "robot_description", "-z", "1.2"],
         output="screen"
     )
 
